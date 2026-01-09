@@ -167,11 +167,11 @@ function initCounters() {
 // Mood System
 // ===================================
 const moodStates = [
-    { min: 0, max: 20, emoji: '😢', text: 'Feeling Down', color1: '#0f172a', color2: '#1e3a8a' },
-    { min: 20, max: 40, emoji: '😔', text: 'A Bit Low', color1: '#1e3a8a', color2: '#3b82f6' },
-    { min: 40, max: 60, emoji: '😊', text: 'Feeling Good', color1: '#3b82f6', color2: '#6366f1' },
-    { min: 60, max: 80, emoji: '😄', text: 'Pretty Happy', color1: '#6366f1', color2: '#f59e0b' },
-    { min: 80, max: 100, emoji: '🤩', text: 'Absolutely Ecstatic', color1: '#f59e0b', color2: '#fbbf24' }
+    { min: 0, max: 20, emoji: '😢', text: 'Overwhelmed & Struggling', color1: '#1a1a2e', color2: '#2d3748' },
+    { min: 20, max: 40, emoji: '😔', text: 'Feeling Low & Drained', color1: '#2d3748', color2: '#4a5568' },
+    { min: 40, max: 60, emoji: '😊', text: 'Content & Balanced', color1: '#4a5568', color2: '#48bb78' },
+    { min: 60, max: 80, emoji: '😄', text: 'Joyful & Energized', color1: '#48bb78', color2: '#38a169' },
+    { min: 80, max: 100, emoji: '🌟', text: 'Grateful & Radiant', color1: '#38a169', color2: '#48bb78' }
 ];
 
 function getMoodState(value) {
@@ -560,7 +560,26 @@ elements.mapControlBtns.forEach(btn => {
 
         const view = btn.getAttribute('data-view');
         console.log('Switched to view:', view);
-        // In a real app, would switch map visualization
+
+        // Switch visualization based on view
+        elements.moodBubbles.forEach(bubble => {
+            if (view === 'heat') {
+                bubble.style.opacity = '1';
+                bubble.style.filter = bubble.classList.contains('very-happy') ? 'drop-shadow(0 0 20px var(--color-ecstatic))' :
+                                      bubble.classList.contains('happy') ? 'drop-shadow(0 0 15px var(--color-happy))' :
+                                      bubble.classList.contains('neutral') ? 'drop-shadow(0 0 12px var(--color-neutral))' :
+                                      'drop-shadow(0 0 10px var(--color-sad))';
+            } else if (view === 'cities') {
+                bubble.style.opacity = '0.7';
+                bubble.style.filter = 'none';
+            } else if (view === 'density') {
+                const mood = parseInt(bubble.getAttribute('data-mood'));
+                bubble.style.opacity = mood / 100;
+                bubble.style.filter = 'blur(10px)';
+            }
+        });
+
+        addTickerItem(`Map view switched to ${view} mode`, 'just now');
     });
 });
 

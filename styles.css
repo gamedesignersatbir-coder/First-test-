@@ -3,21 +3,30 @@
    =================================== */
 
 :root {
-    /* Color Spectrum */
-    --color-gloomy: #0f172a;
-    --color-sad: #1e3a8a;
-    --color-neutral: #6366f1;
-    --color-happy: #f59e0b;
-    --color-ecstatic: #fbbf24;
+    /* Professional Color Palette - Apple-inspired */
+    --color-gloomy: #1a1a2e;
+    --color-sad: #2d3748;
+    --color-neutral: #4a5568;
+    --color-happy: #48bb78;
+    --color-ecstatic: #38a169;
 
-    /* Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-bg-medium: rgba(255, 255, 255, 0.06);
-    --glass-bg-strong: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-border-strong: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    --glass-shadow-xl: 0 20px 60px 0 rgba(0, 0, 0, 0.5);
+    /* Accent Colors */
+    --color-primary: #4299e1;
+    --color-secondary: #48bb78;
+    --color-accent: #ed8936;
+    --color-pastel-blue: #90cdf4;
+    --color-pastel-green: #9ae6b4;
+    --color-pastel-pink: #fbb6ce;
+    --color-pastel-purple: #d6bcfa;
+
+    /* Glassmorphism with better readability */
+    --glass-bg: rgba(26, 26, 46, 0.75);
+    --glass-bg-medium: rgba(26, 26, 46, 0.85);
+    --glass-bg-strong: rgba(26, 26, 46, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-border-strong: rgba(255, 255, 255, 0.25);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --glass-shadow-xl: 0 20px 60px 0 rgba(0, 0, 0, 0.6);
 
     /* Typography */
     --font-family: 'Plus Jakarta Sans', sans-serif;
@@ -227,6 +236,8 @@ body {
     border-radius: var(--radius-xl);
     backdrop-filter: blur(20px);
     animation: slideDown 0.5s ease;
+    width: calc(100% - 4rem);
+    max-width: 1200px;
 }
 
 @keyframes slideDown {
@@ -385,26 +396,29 @@ body {
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: var(--spacing-md);
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(0, 0, 0, 0.9);
     animation: fadeInUp 0.6s ease 0.4s both;
+    color: #ffffff;
 }
 
 .city-name {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b, #fb923c);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-pastel-green));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     position: relative;
     display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .hero-subtitle {
     font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     font-weight: 400;
-    opacity: 0.85;
+    color: #ffffff;
     margin-bottom: var(--spacing-lg);
     line-height: 1.7;
     animation: fadeInUp 0.6s ease 0.6s both;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
 }
 
 .counter {
@@ -683,15 +697,16 @@ body {
    =================================== */
 .scroll-indicator {
     position: absolute;
-    bottom: var(--spacing-md);
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-sm);
-    opacity: 0.6;
+    opacity: 0.7;
     animation: fadeInUp 0.6s ease 1.4s both;
+    z-index: 10;
 }
 
 .scroll-mouse {
@@ -957,22 +972,22 @@ section {
 
 .mood-bubble.very-happy {
     fill: var(--color-ecstatic);
-    filter: drop-shadow(0 0 20px var(--color-ecstatic));
+    filter: drop-shadow(0 0 20px var(--color-pastel-green));
 }
 
 .mood-bubble.happy {
-    fill: var(--color-happy);
-    filter: drop-shadow(0 0 15px var(--color-happy));
+    fill: var(--color-secondary);
+    filter: drop-shadow(0 0 15px var(--color-pastel-green));
 }
 
 .mood-bubble.neutral {
-    fill: var(--color-neutral);
-    filter: drop-shadow(0 0 12px var(--color-neutral));
+    fill: var(--color-primary);
+    filter: drop-shadow(0 0 12px var(--color-pastel-blue));
 }
 
 .mood-bubble.sad {
     fill: var(--color-sad);
-    filter: drop-shadow(0 0 10px var(--color-sad));
+    filter: drop-shadow(0 0 10px var(--color-pastel-purple));
 }
 
 @keyframes floatBubble {
