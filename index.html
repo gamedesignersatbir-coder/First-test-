@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JoyPulse - Mood of the Nation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Gradient Container -->
+    <div class="gradient-bg" id="gradientBg"></div>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    How is <span class="city-name" id="cityName">India</span> feeling today?
+                </h1>
+                <p class="hero-subtitle">
+                    Join 10,000+ citizens turning the map gold. Log your mood to ripple the change.
+                </p>
+
+                <!-- The Mood Slider -->
+                <div class="mood-slider-container">
+                    <div class="mood-labels">
+                        <div class="mood-label mood-top">
+                            <span class="mood-emoji">☀️</span>
+                            <span class="mood-text">Ecstatic</span>
+                        </div>
+                        <div class="mood-label mood-bottom">
+                            <span class="mood-emoji">🌧️</span>
+                            <span class="mood-text">Gloomy</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-track">
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="50"
+                            class="mood-slider"
+                            id="moodSlider"
+                            orient="vertical"
+                        />
+                        <div class="slider-fill" id="sliderFill"></div>
+                        <div class="slider-thumb" id="sliderThumb">
+                            <span class="thumb-emoji" id="thumbEmoji">😊</span>
+                        </div>
+                    </div>
+
+                    <div class="mood-value" id="moodValue">Feeling Good</div>
+                </div>
+
+                <!-- CTA Button -->
+                <button class="cta-button" id="logMoodBtn">
+                    <span class="button-text">Log Mood</span>
+                    <span class="button-glow"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Live Map Section -->
+        <section class="map-section glass-card">
+            <h2 class="section-title">Live Mood Map</h2>
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <svg class="india-map" viewBox="0 0 400 500" id="indiaMap">
+                        <!-- Simplified India outline -->
+                        <path class="map-outline" d="M200,50 L250,80 L280,120 L300,180 L310,240 L300,300 L280,360 L250,400 L200,440 L150,400 L120,360 L100,300 L90,240 L100,180 L120,120 L150,80 Z"/>
+
+                        <!-- City mood bubbles -->
+                        <g class="mood-bubbles">
+                            <circle cx="200" cy="150" r="20" class="mood-bubble happy" data-city="Delhi">
+                                <title>Delhi: 82% Happy</title>
+                            </circle>
+                            <circle cx="160" cy="200" r="25" class="mood-bubble very-happy" data-city="Mumbai">
+                                <title>Mumbai: 78% Happy</title>
+                            </circle>
+                            <circle cx="220" cy="280" r="18" class="mood-bubble neutral" data-city="Hyderabad">
+                                <title>Hyderabad: 65% Happy</title>
+                            </circle>
+                            <circle cx="180" cy="350" r="22" class="mood-bubble happy" data-city="Bangalore">
+                                <title>Bangalore: 75% Happy</title>
+                            </circle>
+                            <circle cx="250" cy="240" r="16" class="mood-bubble sad" data-city="Kolkata">
+                                <title>Kolkata: 58% Happy</title>
+                            </circle>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Live Ticker -->
+                <div class="live-ticker">
+                    <h3 class="ticker-title">📊 Live Updates</h3>
+                    <div class="ticker-content" id="tickerContent">
+                        <div class="ticker-item">Mumbai just spiked to 78% Happy! 🎉</div>
+                        <div class="ticker-item">Delhi feeling great at 82% 🌟</div>
+                        <div class="ticker-item">Bangalore vibing at 75% ✨</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Joy Spark Cards -->
+        <section class="joy-section">
+            <h2 class="section-title">Boost Your City's Score</h2>
+            <p class="section-subtitle">Small actions, big ripples</p>
+
+            <div class="joy-cards">
+                <div class="joy-card glass-card">
+                    <div class="card-icon">☕</div>
+                    <h3 class="card-title">Buy a stranger coffee</h3>
+                    <p class="card-description">A simple gesture that creates waves of kindness</p>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="joy-card glass-card">
+                    <div class="card-icon">📞</div>
+                    <h3 class="card-title">Call a parent</h3>
+                    <p class="card-description">Reconnect and spread warmth across generations</p>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="joy-card glass-card">
+                    <div class="card-icon">💬</div>
+                    <h3 class="card-title">Post a compliment</h3>
+                    <p class="card-description">Brighten someone's day with genuine appreciation</p>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">Made with ❤️ for a happier nation</p>
+            <div class="footer-links">
+                <a href="#about" class="footer-link">About</a>
+                <a href="#manifest" class="footer-link">Manifest</a>
+                <a href="#privacy" class="footer-link">Privacy</a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Canvas for Confetti -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
