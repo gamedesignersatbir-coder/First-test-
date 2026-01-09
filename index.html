@@ -6,23 +6,65 @@
     <title>JoyPulse - Mood of the Nation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Background Gradient Container -->
-    <div class="gradient-bg" id="gradientBg"></div>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-emoji">✨</div>
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Gradient Background -->
+    <div class="gradient-bg" id="gradientBg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Floating Navigation -->
+    <nav class="nav-bar glass-card" id="navBar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <span class="logo-emoji">✨</span>
+                <span class="logo-text">JoyPulse</span>
+            </div>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link active">Home</a>
+                <a href="#stats" class="nav-link">Stats</a>
+                <a href="#map" class="nav-link">Map</a>
+                <a href="#insights" class="nav-link">Insights</a>
+                <a href="#community" class="nav-link">Community</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-button" id="shareBtn">Share</button>
+            </div>
+        </div>
+    </nav>
 
     <!-- Main Container -->
     <main class="container">
         <!-- Hero Section -->
-        <section class="hero-section">
+        <section class="hero-section" id="hero">
             <div class="hero-content">
+                <div class="hero-badge glass-micro">
+                    <span class="badge-dot"></span>
+                    <span class="badge-text">Live Now</span>
+                </div>
+
                 <h1 class="hero-title">
                     How is <span class="city-name" id="cityName">India</span> feeling today?
                 </h1>
+
                 <p class="hero-subtitle">
-                    Join 10,000+ citizens turning the map gold. Log your mood to ripple the change.
+                    Join <span class="counter" data-target="10547">0</span>+ citizens turning the map gold.<br>
+                    Log your mood to ripple the change across the nation.
                 </p>
 
                 <!-- The Mood Slider -->
@@ -52,6 +94,7 @@
                         <div class="slider-thumb" id="sliderThumb">
                             <span class="thumb-emoji" id="thumbEmoji">😊</span>
                         </div>
+                        <div class="slider-particles" id="sliderParticles"></div>
                     </div>
 
                     <div class="mood-value" id="moodValue">Feeling Good</div>
@@ -60,48 +103,284 @@
                 <!-- CTA Button -->
                 <button class="cta-button" id="logMoodBtn">
                     <span class="button-text">Log Mood</span>
+                    <span class="button-icon">→</span>
                     <span class="button-glow"></span>
                 </button>
+
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span class="meta-text"><span class="counter" data-target="127">0</span> online now</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📊</span>
+                        <span class="meta-text">National avg: 68% happy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <p class="scroll-text">Scroll to explore</p>
+            </div>
+        </section>
+
+        <!-- Statistics Dashboard -->
+        <section class="stats-section" id="stats">
+            <div class="section-header">
+                <h2 class="section-title">Live Statistics</h2>
+                <p class="section-subtitle">Real-time mood data from across the nation</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">😊</div>
+                    <div class="stat-value">
+                        <span class="counter" data-target="68">0</span>%
+                    </div>
+                    <div class="stat-label">National Happiness</div>
+                    <div class="stat-trend up">
+                        <span class="trend-icon">↑</span>
+                        <span class="trend-text">+5% from yesterday</span>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">📍</div>
+                    <div class="stat-value">
+                        <span class="counter" data-target="28">0</span>
+                    </div>
+                    <div class="stat-label">Active Cities</div>
+                    <div class="stat-trend neutral">
+                        <span class="trend-icon">→</span>
+                        <span class="trend-text">Same as yesterday</span>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">✨</div>
+                    <div class="stat-value">
+                        <span class="counter" data-target="10547">0</span>
+                    </div>
+                    <div class="stat-label">Moods Logged Today</div>
+                    <div class="stat-trend up">
+                        <span class="trend-icon">↑</span>
+                        <span class="trend-text">+842 in last hour</span>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value" id="happiestCity">Mumbai</div>
+                    <div class="stat-label">Happiest City Today</div>
+                    <div class="stat-trend up">
+                        <span class="trend-icon">🌟</span>
+                        <span class="trend-text">85% happiness score</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mood Trends -->
+        <section class="trends-section">
+            <div class="section-header">
+                <h2 class="section-title">Mood Trends</h2>
+                <p class="section-subtitle">See how the nation's mood has evolved</p>
+            </div>
+
+            <div class="trends-container glass-card">
+                <div class="trends-controls">
+                    <button class="trend-btn active" data-period="today">Today</button>
+                    <button class="trend-btn" data-period="week">This Week</button>
+                    <button class="trend-btn" data-period="month">This Month</button>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="moodChart"></canvas>
+                </div>
+
+                <div class="trend-insights">
+                    <div class="insight-item">
+                        <span class="insight-icon">🌅</span>
+                        <span class="insight-text">Peak happiness: 9-11 AM</span>
+                    </div>
+                    <div class="insight-item">
+                        <span class="insight-icon">📈</span>
+                        <span class="insight-text">Trending up this week</span>
+                    </div>
+                    <div class="insight-item">
+                        <span class="insight-icon">🎯</span>
+                        <span class="insight-text">Weekend mood boost expected</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Live Map Section -->
-        <section class="map-section glass-card">
-            <h2 class="section-title">Live Mood Map</h2>
-            <div class="map-container">
-                <div class="map-wrapper">
-                    <svg class="india-map" viewBox="0 0 400 500" id="indiaMap">
-                        <!-- Simplified India outline -->
-                        <path class="map-outline" d="M200,50 L250,80 L280,120 L300,180 L310,240 L300,300 L280,360 L250,400 L200,440 L150,400 L120,360 L100,300 L90,240 L100,180 L120,120 L150,80 Z"/>
+        <section class="map-section" id="map">
+            <div class="section-header">
+                <h2 class="section-title">Live Mood Map</h2>
+                <p class="section-subtitle">Watch happiness spread across India in real-time</p>
+            </div>
 
-                        <!-- City mood bubbles -->
-                        <g class="mood-bubbles">
-                            <circle cx="200" cy="150" r="20" class="mood-bubble happy" data-city="Delhi">
-                                <title>Delhi: 82% Happy</title>
-                            </circle>
-                            <circle cx="160" cy="200" r="25" class="mood-bubble very-happy" data-city="Mumbai">
-                                <title>Mumbai: 78% Happy</title>
-                            </circle>
-                            <circle cx="220" cy="280" r="18" class="mood-bubble neutral" data-city="Hyderabad">
-                                <title>Hyderabad: 65% Happy</title>
-                            </circle>
-                            <circle cx="180" cy="350" r="22" class="mood-bubble happy" data-city="Bangalore">
-                                <title>Bangalore: 75% Happy</title>
-                            </circle>
-                            <circle cx="250" cy="240" r="16" class="mood-bubble sad" data-city="Kolkata">
-                                <title>Kolkata: 58% Happy</title>
-                            </circle>
-                        </g>
-                    </svg>
+            <div class="map-wrapper glass-card">
+                <div class="map-controls">
+                    <button class="map-control-btn active" data-view="heat">Heat Map</button>
+                    <button class="map-control-btn" data-view="cities">Cities</button>
+                    <button class="map-control-btn" data-view="density">Density</button>
                 </div>
 
-                <!-- Live Ticker -->
-                <div class="live-ticker">
-                    <h3 class="ticker-title">📊 Live Updates</h3>
-                    <div class="ticker-content" id="tickerContent">
-                        <div class="ticker-item">Mumbai just spiked to 78% Happy! 🎉</div>
-                        <div class="ticker-item">Delhi feeling great at 82% 🌟</div>
-                        <div class="ticker-item">Bangalore vibing at 75% ✨</div>
+                <div class="map-container">
+                    <div class="map-canvas">
+                        <svg class="india-map" viewBox="0 0 400 500" id="indiaMap">
+                            <!-- Simplified India outline -->
+                            <defs>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <path class="map-outline" d="M200,50 L250,80 L280,120 L300,180 L310,240 L300,300 L280,360 L250,400 L200,440 L150,400 L120,360 L100,300 L90,240 L100,180 L120,120 L150,80 Z"/>
+
+                            <!-- City mood bubbles -->
+                            <g class="mood-bubbles">
+                                <circle cx="200" cy="150" r="22" class="mood-bubble happy" data-city="Delhi" data-mood="82">
+                                    <title>Delhi: 82% Happy</title>
+                                </circle>
+                                <circle cx="160" cy="200" r="28" class="mood-bubble very-happy" data-city="Mumbai" data-mood="85">
+                                    <title>Mumbai: 85% Happy</title>
+                                </circle>
+                                <circle cx="220" cy="280" r="20" class="mood-bubble neutral" data-city="Hyderabad" data-mood="65">
+                                    <title>Hyderabad: 65% Happy</title>
+                                </circle>
+                                <circle cx="180" cy="350" r="24" class="mood-bubble happy" data-city="Bangalore" data-mood="75">
+                                    <title>Bangalore: 75% Happy</title>
+                                </circle>
+                                <circle cx="250" cy="240" r="18" class="mood-bubble sad" data-city="Kolkata" data-mood="58">
+                                    <title>Kolkata: 58% Happy</title>
+                                </circle>
+                                <circle cx="130" cy="280" r="21" class="mood-bubble happy" data-city="Pune" data-mood="78">
+                                    <title>Pune: 78% Happy</title>
+                                </circle>
+                                <circle cx="110" cy="160" r="19" class="mood-bubble very-happy" data-city="Ahmedabad" data-mood="80">
+                                    <title>Ahmedabad: 80% Happy</title>
+                                </circle>
+                                <circle cx="280" cy="380" r="20" class="mood-bubble happy" data-city="Chennai" data-mood="72">
+                                    <title>Chennai: 72% Happy</title>
+                                </circle>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Live Ticker -->
+                    <div class="live-ticker glass-micro">
+                        <div class="ticker-header">
+                            <h3 class="ticker-title">📊 Live Updates</h3>
+                            <span class="ticker-status">
+                                <span class="status-dot"></span>
+                                Updating
+                            </span>
+                        </div>
+                        <div class="ticker-content" id="tickerContent">
+                            <div class="ticker-item">
+                                <span class="ticker-icon">🎉</span>
+                                <span class="ticker-text">Mumbai just spiked to 85% Happy!</span>
+                                <span class="ticker-time">2m ago</span>
+                            </div>
+                            <div class="ticker-item">
+                                <span class="ticker-icon">🌟</span>
+                                <span class="ticker-text">Delhi feeling great at 82%</span>
+                                <span class="ticker-time">5m ago</span>
+                            </div>
+                            <div class="ticker-item">
+                                <span class="ticker-icon">✨</span>
+                                <span class="ticker-text">Bangalore vibing at 75%</span>
+                                <span class="ticker-time">8m ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fbbf24;"></div>
+                        <span class="legend-label">80-100% Happy</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f59e0b;"></div>
+                        <span class="legend-label">60-80% Happy</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #8b5cf6;"></div>
+                        <span class="legend-label">40-60% Neutral</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #3b82f6;"></div>
+                        <span class="legend-label">20-40% Low</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wellness Insights -->
+        <section class="insights-section" id="insights">
+            <div class="section-header">
+                <h2 class="section-title">Wellness Insights</h2>
+                <p class="section-subtitle">Backed by science, powered by compassion</p>
+            </div>
+
+            <div class="insights-grid">
+                <div class="insight-card glass-card">
+                    <div class="insight-header">
+                        <div class="insight-icon-wrapper">
+                            <span class="insight-icon-large">🧘</span>
+                        </div>
+                        <h3 class="insight-title">Morning Mindfulness</h3>
+                    </div>
+                    <p class="insight-description">
+                        Studies show that 10 minutes of morning meditation can boost your mood by up to 25% throughout the day.
+                    </p>
+                    <div class="insight-action">
+                        <button class="insight-btn">Try Now</button>
+                        <span class="insight-time">10 min</span>
+                    </div>
+                </div>
+
+                <div class="insight-card glass-card">
+                    <div class="insight-header">
+                        <div class="insight-icon-wrapper">
+                            <span class="insight-icon-large">🚶</span>
+                        </div>
+                        <h3 class="insight-title">Walk & Talk</h3>
+                    </div>
+                    <p class="insight-description">
+                        A 15-minute walk combined with social interaction releases endorphins and reduces stress by 30%.
+                    </p>
+                    <div class="insight-action">
+                        <button class="insight-btn">Start Walking</button>
+                        <span class="insight-time">15 min</span>
+                    </div>
+                </div>
+
+                <div class="insight-card glass-card">
+                    <div class="insight-header">
+                        <div class="insight-icon-wrapper">
+                            <span class="insight-icon-large">💚</span>
+                        </div>
+                        <h3 class="insight-title">Gratitude Practice</h3>
+                    </div>
+                    <p class="insight-description">
+                        Writing down 3 things you're grateful for each day can increase happiness levels by 20% over time.
+                    </p>
+                    <div class="insight-action">
+                        <button class="insight-btn">Begin Journal</button>
+                        <span class="insight-time">5 min</span>
                     </div>
                 </div>
             </div>
@@ -109,40 +388,220 @@
 
         <!-- Joy Spark Cards -->
         <section class="joy-section">
-            <h2 class="section-title">Boost Your City's Score</h2>
-            <p class="section-subtitle">Small actions, big ripples</p>
+            <div class="section-header">
+                <h2 class="section-title">Boost Your City's Score</h2>
+                <p class="section-subtitle">Small actions, big ripples</p>
+            </div>
 
             <div class="joy-cards">
-                <div class="joy-card glass-card">
+                <div class="joy-card glass-card" data-action="coffee">
                     <div class="card-icon">☕</div>
                     <h3 class="card-title">Buy a stranger coffee</h3>
                     <p class="card-description">A simple gesture that creates waves of kindness</p>
+                    <div class="card-impact">
+                        <span class="impact-label">Impact:</span>
+                        <span class="impact-value">+5 Joy Points</span>
+                    </div>
                     <div class="card-glow"></div>
                 </div>
 
-                <div class="joy-card glass-card">
+                <div class="joy-card glass-card" data-action="call">
                     <div class="card-icon">📞</div>
                     <h3 class="card-title">Call a parent</h3>
                     <p class="card-description">Reconnect and spread warmth across generations</p>
+                    <div class="card-impact">
+                        <span class="impact-label">Impact:</span>
+                        <span class="impact-value">+8 Joy Points</span>
+                    </div>
                     <div class="card-glow"></div>
                 </div>
 
-                <div class="joy-card glass-card">
+                <div class="joy-card glass-card" data-action="compliment">
                     <div class="card-icon">💬</div>
                     <h3 class="card-title">Post a compliment</h3>
                     <p class="card-description">Brighten someone's day with genuine appreciation</p>
+                    <div class="card-impact">
+                        <span class="impact-label">Impact:</span>
+                        <span class="impact-value">+3 Joy Points</span>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="joy-card glass-card" data-action="volunteer">
+                    <div class="card-icon">🤝</div>
+                    <h3 class="card-title">Volunteer locally</h3>
+                    <p class="card-description">Give your time to uplift your community</p>
+                    <div class="card-impact">
+                        <span class="impact-label">Impact:</span>
+                        <span class="impact-value">+15 Joy Points</span>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="joy-card glass-card" data-action="smile">
+                    <div class="card-icon">😊</div>
+                    <h3 class="card-title">Share a smile</h3>
+                    <p class="card-description">The simplest act that costs nothing but means everything</p>
+                    <div class="card-impact">
+                        <span class="impact-label">Impact:</span>
+                        <span class="impact-value">+2 Joy Points</span>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="joy-card glass-card" data-action="donate">
+                    <div class="card-icon">🎁</div>
+                    <h3 class="card-title">Donate to charity</h3>
+                    <p class="card-description">Transform lives and multiply happiness exponentially</p>
+                    <div class="card-impact">
+                        <span class="impact-label">Impact:</span>
+                        <span class="impact-value">+20 Joy Points</span>
+                    </div>
                     <div class="card-glow"></div>
                 </div>
             </div>
         </section>
 
+        <!-- Community Stories -->
+        <section class="community-section" id="community">
+            <div class="section-header">
+                <h2 class="section-title">Community Stories</h2>
+                <p class="section-subtitle">Real people, real impact</p>
+            </div>
+
+            <div class="stories-grid">
+                <div class="story-card glass-card">
+                    <div class="story-header">
+                        <div class="story-avatar">R</div>
+                        <div class="story-author">
+                            <h4 class="author-name">Rajesh from Mumbai</h4>
+                            <p class="author-meta">2 hours ago</p>
+                        </div>
+                    </div>
+                    <p class="story-content">
+                        "Started my day feeling low, but after logging my mood and seeing so many positive vibes from my city, I felt inspired to pay it forward. Bought coffee for 5 people in line today!"
+                    </p>
+                    <div class="story-mood">
+                        <span class="story-emoji">😊 → 🤩</span>
+                        <span class="story-mood-text">Mood improved by 40%</span>
+                    </div>
+                </div>
+
+                <div class="story-card glass-card">
+                    <div class="story-header">
+                        <div class="story-avatar">P</div>
+                        <div class="story-author">
+                            <h4 class="author-name">Priya from Delhi</h4>
+                            <p class="author-meta">5 hours ago</p>
+                        </div>
+                    </div>
+                    <p class="story-content">
+                        "This app reminded me to call my mom. We spoke for an hour and I realized how much I needed that connection. JoyPulse is more than mood tracking—it's a lifestyle."
+                    </p>
+                    <div class="story-mood">
+                        <span class="story-emoji">😔 → 😄</span>
+                        <span class="story-mood-text">Mood improved by 35%</span>
+                    </div>
+                </div>
+
+                <div class="story-card glass-card">
+                    <div class="story-header">
+                        <div class="story-avatar">A</div>
+                        <div class="story-author">
+                            <h4 class="author-name">Arjun from Bangalore</h4>
+                            <p class="author-meta">1 day ago</p>
+                        </div>
+                    </div>
+                    <p class="story-content">
+                        "Seeing our city's happiness score climb from 65% to 75% this week made me realize: we're all in this together. Every smile counts. Every mood matters."
+                    </p>
+                    <div class="story-mood">
+                        <span class="story-emoji">😊 → 😊</span>
+                        <span class="story-mood-text">Spreading positivity</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-content glass-card">
+                <div class="newsletter-icon">📬</div>
+                <h2 class="newsletter-title">Get Your Weekly Joy Report</h2>
+                <p class="newsletter-description">
+                    Personalized insights, city trends, and happiness tips delivered every Monday morning.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-button">
+                        Subscribe
+                        <span class="button-arrow">→</span>
+                    </button>
+                </form>
+                <p class="newsletter-privacy">We respect your privacy. Unsubscribe anytime.</p>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="footer">
-            <p class="footer-text">Made with ❤️ for a happier nation</p>
-            <div class="footer-links">
-                <a href="#about" class="footer-link">About</a>
-                <a href="#manifest" class="footer-link">Manifest</a>
-                <a href="#privacy" class="footer-link">Privacy</a>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-emoji">✨</span>
+                        <span class="logo-text">JoyPulse</span>
+                    </div>
+                    <p class="footer-tagline">Measuring happiness, multiplying joy</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links-group">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Platform</h4>
+                        <a href="#" class="footer-link">How it Works</a>
+                        <a href="#" class="footer-link">About Us</a>
+                        <a href="#" class="footer-link">Manifest</a>
+                        <a href="#" class="footer-link">Blog</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Resources</h4>
+                        <a href="#" class="footer-link">Wellness Guide</a>
+                        <a href="#" class="footer-link">API Access</a>
+                        <a href="#" class="footer-link">Community Forum</a>
+                        <a href="#" class="footer-link">Press Kit</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Legal</h4>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Cookie Policy</a>
+                        <a href="#" class="footer-link">Data Security</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Contact</h4>
+                        <a href="#" class="footer-link">Support</a>
+                        <a href="#" class="footer-link">Partnerships</a>
+                        <a href="#" class="footer-link">Media Inquiries</a>
+                        <a href="#" class="footer-link">Feedback</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-text">Made with ❤️ for a happier nation</p>
+                <p class="footer-copyright">© 2026 JoyPulse. All rights reserved.</p>
             </div>
         </footer>
     </main>
@@ -151,6 +610,7 @@
     <canvas id="confettiCanvas"></canvas>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
