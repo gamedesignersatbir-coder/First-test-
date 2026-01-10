@@ -167,11 +167,11 @@ function initCounters() {
 // Mood System
 // ===================================
 const moodStates = [
-    { min: 0, max: 20, emoji: '😢', text: 'Overwhelmed & Struggling', color1: '#1a1a2e', color2: '#2d3748' },
-    { min: 20, max: 40, emoji: '😔', text: 'Feeling Low & Drained', color1: '#2d3748', color2: '#4a5568' },
-    { min: 40, max: 60, emoji: '😊', text: 'Content & Balanced', color1: '#4a5568', color2: '#48bb78' },
-    { min: 60, max: 80, emoji: '😄', text: 'Joyful & Energized', color1: '#48bb78', color2: '#38a169' },
-    { min: 80, max: 100, emoji: '🌟', text: 'Grateful & Radiant', color1: '#38a169', color2: '#48bb78' }
+    { min: 0, max: 20, emoji: '😢', text: 'Overwhelmed & Struggling', color1: '#1a1a2e', color2: '#4a5568' },
+    { min: 20, max: 40, emoji: '😔', text: 'Feeling Low & Drained', color1: '#4a5568', color2: '#7c3aed' },
+    { min: 40, max: 60, emoji: '😊', text: 'Content & Balanced', color1: '#7c3aed', color2: '#f59e0b' },
+    { min: 60, max: 80, emoji: '😄', text: 'Joyful & Energized', color1: '#f59e0b', color2: '#fbbf24' },
+    { min: 80, max: 100, emoji: '🌟', text: 'Grateful & Radiant', color1: '#fbbf24', color2: '#fb923c' }
 ];
 
 function getMoodState(value) {
@@ -417,7 +417,15 @@ setInterval(updateTicker, 8000);
 // Mood Chart (Chart.js)
 // ===================================
 function createMoodChart() {
-    if (!elements.moodChart) return;
+    if (!elements.moodChart) {
+        console.log('Chart canvas not found');
+        return;
+    }
+
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js not loaded!');
+        return;
+    }
 
     const ctx = elements.moodChart.getContext('2d');
 
@@ -565,17 +573,19 @@ elements.mapControlBtns.forEach(btn => {
         elements.moodBubbles.forEach(bubble => {
             if (view === 'heat') {
                 bubble.style.opacity = '1';
-                bubble.style.filter = bubble.classList.contains('very-happy') ? 'drop-shadow(0 0 20px var(--color-ecstatic))' :
-                                      bubble.classList.contains('happy') ? 'drop-shadow(0 0 15px var(--color-happy))' :
-                                      bubble.classList.contains('neutral') ? 'drop-shadow(0 0 12px var(--color-neutral))' :
-                                      'drop-shadow(0 0 10px var(--color-sad))';
+                bubble.style.filter = bubble.classList.contains('very-happy') ? 'drop-shadow(0 0 30px #fbbf24)' :
+                                      bubble.classList.contains('happy') ? 'drop-shadow(0 0 25px #f59e0b)' :
+                                      bubble.classList.contains('neutral') ? 'drop-shadow(0 0 20px #7c3aed)' :
+                                      'drop-shadow(0 0 15px #6b7280)';
             } else if (view === 'cities') {
-                bubble.style.opacity = '0.7';
-                bubble.style.filter = 'none';
+                bubble.style.opacity = '0.8';
+                bubble.style.filter = 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))';
             } else if (view === 'density') {
                 const mood = parseInt(bubble.getAttribute('data-mood'));
-                bubble.style.opacity = mood / 100;
-                bubble.style.filter = 'blur(10px)';
+                const size = (mood / 100) * 30 + 15; // Scale between 15-45
+                bubble.style.r = size;
+                bubble.style.opacity = (mood / 100) * 0.5 + 0.5; // 0.5 to 1
+                bubble.style.filter = 'blur(5px) drop-shadow(0 0 15px currentColor)';
             }
         });
 
@@ -808,10 +818,14 @@ function init() {
     // Detect city
     detectCity();
 
-    // Create chart
-    if (typeof Chart !== 'undefined') {
-        createMoodChart();
-    }
+    // Create chart - wait for Chart.js to load
+    setTimeout(() => {
+        if (typeof Chart !== 'undefined') {
+            createMoodChart();
+        } else {
+            console.error('Chart.js failed to load');
+        }
+    }, 500);
 
     // Hide loading screen
     hideLoadingScreen();

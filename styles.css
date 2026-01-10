@@ -3,21 +3,21 @@
    =================================== */
 
 :root {
-    /* Professional Color Palette - Apple-inspired */
+    /* Warm Joyful Color Palette */
     --color-gloomy: #1a1a2e;
-    --color-sad: #2d3748;
-    --color-neutral: #4a5568;
-    --color-happy: #48bb78;
-    --color-ecstatic: #38a169;
+    --color-sad: #4a5568;
+    --color-neutral: #7c3aed;
+    --color-happy: #f59e0b;
+    --color-ecstatic: #fbbf24;
 
-    /* Accent Colors */
-    --color-primary: #4299e1;
-    --color-secondary: #48bb78;
-    --color-accent: #ed8936;
-    --color-pastel-blue: #90cdf4;
-    --color-pastel-green: #9ae6b4;
-    --color-pastel-pink: #fbb6ce;
-    --color-pastel-purple: #d6bcfa;
+    /* Warm Accent Colors */
+    --color-primary: #f59e0b;
+    --color-secondary: #fbbf24;
+    --color-accent: #fb923c;
+    --color-pastel-yellow: #fef3c7;
+    --color-pastel-orange: #fed7aa;
+    --color-pastel-pink: #fecaca;
+    --color-pastel-purple: #e9d5ff;
 
     /* Glassmorphism with better readability */
     --glass-bg: rgba(26, 26, 46, 0.75);
@@ -229,8 +229,9 @@ body {
 .nav-bar {
     position: fixed;
     top: var(--spacing-md);
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     z-index: 1000;
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--radius-xl);
@@ -243,11 +244,11 @@ body {
 @keyframes slideDown {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -353,7 +354,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-2xl) 0 var(--spacing-xl) 0;
+    padding: var(--spacing-2xl) 0 4rem 0;
     position: relative;
 }
 
@@ -402,13 +403,13 @@ body {
 }
 
 .city-name {
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-pastel-green));
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #fb923c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     position: relative;
     display: inline-block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 4px 8px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
 }
 
 .hero-subtitle {
@@ -971,23 +972,23 @@ section {
 }
 
 .mood-bubble.very-happy {
-    fill: var(--color-ecstatic);
-    filter: drop-shadow(0 0 20px var(--color-pastel-green));
+    fill: #fbbf24;
+    filter: drop-shadow(0 0 20px #fbbf24);
 }
 
 .mood-bubble.happy {
-    fill: var(--color-secondary);
-    filter: drop-shadow(0 0 15px var(--color-pastel-green));
+    fill: #f59e0b;
+    filter: drop-shadow(0 0 15px #f59e0b);
 }
 
 .mood-bubble.neutral {
-    fill: var(--color-primary);
-    filter: drop-shadow(0 0 12px var(--color-pastel-blue));
+    fill: #7c3aed;
+    filter: drop-shadow(0 0 12px #7c3aed);
 }
 
 .mood-bubble.sad {
-    fill: var(--color-sad);
-    filter: drop-shadow(0 0 10px var(--color-pastel-purple));
+    fill: #4a5568;
+    filter: drop-shadow(0 0 10px #6b7280);
 }
 
 @keyframes floatBubble {
@@ -1161,18 +1162,20 @@ section {
 
 .insight-btn {
     padding: var(--spacing-sm) var(--spacing-md);
-    background: linear-gradient(135deg, var(--color-happy), var(--color-ecstatic));
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
     border: none;
     border-radius: var(--radius-sm);
-    color: #ffffff;
-    font-weight: 600;
+    color: #1a1a2e;
+    font-weight: 700;
     font-family: var(--font-family);
     cursor: pointer;
-    transition: transform var(--transition-fast);
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
 }
 
 .insight-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
 }
 
 .insight-time {
